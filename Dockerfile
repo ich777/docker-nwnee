@@ -6,6 +6,7 @@ RUN apt-get update
 RUN apt-get -y install gcc-6 g++-6 libmysqlclient-dev libpq-dev libseccomp-dev ruby-dev ant wget curl unzip mariadb-server screen redis-server
 
 ENV SERVER_DIR="/serverfiles"
+ENV NWNEE_V="latest"
 ENV MAX_CLIENTS=4
 ENV MINLEVEL=1
 ENV MAXLEVEL=40
@@ -22,9 +23,8 @@ ENV APWD="adminDocker"
 ENV SRV_NAME="Docker NWN:EE"
 ENV PUBLIC_SRV=0
 ENV RLD_W_E=1
-ENV GAME_PARAMS="template"
+ENV GAME_PARAMS=""
 ENV GAME_PORT=5121
-ENV VALIDATE=""
 ENV UMASK=000
 ENV UID=99
 ENV GID=100
