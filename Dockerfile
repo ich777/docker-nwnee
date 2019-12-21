@@ -3,7 +3,7 @@ FROM ubuntu
 MAINTAINER ich777
 
 RUN apt-get update
-RUN apt-get -y install gcc-6 g++-6 libmysqlclient-dev libpq-dev libseccomp-dev ruby-dev ant wget curl unzip mariadb-server screen redis-server
+RUN apt-get -y install gcc-6 g++-6 libmysqlclient-dev libpq-dev libseccomp-dev ruby-dev ant libluajit-5.1-2 wget curl unzip mariadb-server screen redis-server
 
 ENV SERVER_DIR="/nwnee"
 ENV NWNEE_V="latest"
