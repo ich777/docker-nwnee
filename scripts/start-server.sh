@@ -37,6 +37,7 @@ if [ -z "$CUR_V" ]; then
 	unzip -o ${SERVER_DIR}/nwnee-dedicated-${NWNEE_V}.zip
 	touch ${SERVER_DIR}/build${NWNEE_V}
 	rm ${SERVER_DIR}/nwnee-dedicated-${NWNEE_V}.zip
+    CUR_V=${NWNEE_V}
 fi
 
 if [ -z "$CUR_V_BIN" ]; then
@@ -56,6 +57,7 @@ if [ -z "$CUR_V_BIN" ]; then
 	rm -R ${SERVER_DIR}/binaries/Binaries
 	touch ${SERVER_DIR}/binariesbuild${NWNEE_V}
 	rm ${SERVER_DIR}/binaries/NWNX-EE.zip
+    CUR_V_BIN=${NWNEE_V}
 fi
 
 echo "---Server Version Check---"
