@@ -1,4 +1,6 @@
 #!/bin/bash
+sleep infintiy
+
 export NWNX_DOTNET_SKIP=y
 export LD_PRELOAD="./NWNX_Core.so"
 export NWNX_METRICS_INFLUXDB_HOST=127.0.0.1
@@ -72,9 +74,6 @@ find ${SERVER_DIR} -name "MariaDBLog.0" -exec rm -f {} \;
 find ${SERVER_DIR} -name "RedisLog.0" -exec rm -f {} \;
 
 chmod -R 777 ${SERVER_DIR}
-
-echo "---Sleep zZz---"
-sleep infinity
 
 echo "---Start Server---"
 cd ${SERVER_DIR}/bin/linux-x86
