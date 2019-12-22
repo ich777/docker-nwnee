@@ -7,6 +7,7 @@ RUN apt-get -y install gcc-6 g++-6 libmysqlclient-dev libpq-dev libseccomp-dev r
 
 ENV SERVER_DIR="/nwnee"
 ENV NWNEE_V="latest"
+ENV MOD_NAME=""
 ENV MAX_CLIENTS=4
 ENV MINLEVEL=1
 ENV MAXLEVEL=40
