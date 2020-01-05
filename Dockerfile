@@ -1,9 +1,10 @@
-FROM ubuntu
+FROM ich777/debian-baseimage
 
-MAINTAINER ich777
+LABEL maintainer="admin@minenet.at"
 
-RUN apt-get update
-RUN apt-get -y install gcc-6 g++-6 libmysqlclient-dev libpq-dev libseccomp-dev ruby-dev ant libluajit-5.1-2 wget curl unzip mariadb-server screen redis-server
+RUN apt-get update && \
+	apt-get -y install --no-install-recommends gcc-6 g++-6 libmysqlclient-dev libpq-dev libseccomp-dev ruby-dev ant libluajit-5.1-2 curl unzip mariadb-server screen redis-server && \
+	rm -rf /var/lib/apt/lists/*
 
 ENV SERVER_DIR="/nwnee"
 ENV NWNEE_V="latest"
@@ -31,28 +32,26 @@ ENV UMASK=000
 ENV UID=99
 ENV GID=100
 
-RUN mkdir $SERVER_DIR
-RUN useradd -d $SERVER_DIR -s /bin/bash --uid $UID --gid $GID nwnee
-RUN chown -R nwnee $SERVER_DIR
-
-RUN ulimit -n 2048
-
-RUN /etc/init.d/mysql start && \
+RUN mkdir $SERVER_DIR && \
+	useradd -d $SERVER_DIR -s /bin/bash --uid $UID --gid $GID nwnee && \
+	chown -R nwnee $SERVER_DIR && \
+	ulimit -n 2048 && \
+	/etc/init.d/mysql start && \
 	mysql -u root -e "CREATE USER IF NOT EXISTS 'nwnee'@'%' IDENTIFIED BY 'nwnee';FLUSH PRIVILEGES;" && \
 	mysql -u root -e "CREATE DATABASE IF NOT EXISTS nwnee;" && \
 	mysql -u root -e "GRANT ALL ON nwnee.* TO 'nwnee'@'%' IDENTIFIED BY 'nwnee';" && \
 	mysql -u root -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'nwneeroot';FLUSH PRIVILEGES;"
 
 ADD /scripts/ /opt/scripts/
-RUN chmod -R 770 /opt/scripts/
-RUN chown -R nwnee /opt/scripts
-RUN chown -R nwnee:users /var/lib/mysql
-RUN chmod -R 770 /var/lib/mysql
-RUN chown -R nwnee:users /var/run/mysqld
-RUN chmod -R 770 /var/run/mysqld
-RUN chown -R nwnee /var/lib/redis
-RUN chown -R nwnee /usr/bin/redis-server
-RUN chown -R nwnee /usr/bin/redis-cli
+RUN chmod -R 770 /opt/scripts/ && \
+	chown -R nwnee /opt/scripts && \
+	chown -R nwnee:users /var/lib/mysql && \
+	chmod -R 770 /var/lib/mysql && \
+	chown -R nwnee:users /var/run/mysqld && \
+	chmod -R 770 /var/run/mysqld && \
+	chown -R nwnee /var/lib/redis && \
+	chown -R nwnee /usr/bin/redis-server && \
+	chown -R nwnee /usr/bin/redis-cli
 
 USER nwnee
 
