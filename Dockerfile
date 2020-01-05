@@ -3,7 +3,9 @@ FROM ich777/debian-baseimage
 LABEL maintainer="admin@minenet.at"
 
 RUN apt-get update && \
+	mkdir /usr/share/man/man1
 	apt-get -y install --no-install-recommends gcc-8 g++-8 default-libmysqlclient-dev libpq-dev libseccomp-dev ruby-dev ant libluajit-5.1-2 curl unzip mariadb-server screen redis-server && \
+	rm -R /usr/share/man/man1 && \
 	rm -rf /var/lib/apt/lists/*
 
 ENV SERVER_DIR="/nwnee"
