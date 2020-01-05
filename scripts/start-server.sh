@@ -28,7 +28,7 @@ sleep 5
 if [ -z "$CUR_V" ]; then
 	echo "---NWN:EE Dedicated Server not found, installing v${NWNEE_V}!---"
 	cd ${SERVER_DIR}
-	if wget https://nwnx.io/nwnee-dedicated-${NWNEE_V}.zip ; then
+	if wget -q -nc --show-progress --progress=bar:force:noscroll https://nwnx.io/nwnee-dedicated-${NWNEE_V}.zip ; then
 		echo "---Sucessfully downloaded NWN:EE Dedicated Server---"
 	else
 		echo "---Something went wrong, can't download NWN:EE Dedicated Server, putting server in sleep mode---"
@@ -46,7 +46,7 @@ if [ -z "$CUR_V_BIN" ]; then
 		mkdir ${SERVER_DIR}/binaries
 	fi
 	cd ${SERVER_DIR}/binaries
-	if wget https://github.com/nwnxee/unified/releases/download/build${NWNEE_V}/NWNX-EE.zip ; then
+	if wget -q -nc --show-progress --progress=bar:force:noscroll https://github.com/nwnxee/unified/releases/download/build${NWNEE_V}/NWNX-EE.zip ; then
 		echo "---Sucessfully downloaded NWN:EE Binaries---"
 	else
 		echo "---Something went wrong, can't download NWN:EE Binaries, putting server in sleep mode---"
@@ -67,7 +67,7 @@ if [ "${NWNEE_V}" != "$CUR_V" ]; then
     rm -R ${SERVER_DIR}/bin
     rm -R ${SERVER_DIR}/data
 	cd ${SERVER_DIR}
-	if wget https://nwnx.io/nwnee-dedicated-${NWNEE_V}.zip ; then
+	if wget -q -nc --show-progress --progress=bar:force:noscroll https://nwnx.io/nwnee-dedicated-${NWNEE_V}.zip ; then
 		echo "---Sucessfully downloaded NWN:EE Dedicated Server---"
 	else
 		echo "---Something went wrong, can't download NWN:EE Dedicated Server, putting server in sleep mode---"
@@ -87,7 +87,7 @@ if [ "${NWNEE_V}" != "$CUR_V_BIN" ]; then
     rm -R ${SERVER_DIR}/binaries
     mkdir ${SERVER_DIR}/binaries
 	cd ${SERVER_DIR}/binaries
-	if wget https://github.com/nwnxee/unified/releases/download/build${NWNEE_V}/NWNX-EE.zip ; then
+	if wget -q -nc --show-progress --progress=bar:force:noscroll https://github.com/nwnxee/unified/releases/download/build${NWNEE_V}/NWNX-EE.zip ; then
 		echo "---Sucessfully downloaded NWN:EE Binaries---"
 	else
 		echo "---Something went wrong, can't download NWN:EE Binaries, putting server in sleep mode---"
