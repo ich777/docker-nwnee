@@ -33,10 +33,12 @@ ENV LOG_LVL=6
 ENV UMASK=000
 ENV UID=99
 ENV GID=100
+ENV DATA_PERM=770
+ENV USER="nwnee"
 
 RUN mkdir $SERVER_DIR && \
-	useradd -d $SERVER_DIR -s /bin/bash --uid $UID --gid $GID nwnee && \
-	chown -R nwnee $SERVER_DIR && \
+	useradd -d $SERVER_DIR -s /bin/bash $USER && \
+	chown -R $USER $SERVER_DIR && \
 	ulimit -n 2048 && \
 	/etc/init.d/mysql start && \
 	mysql -u root -e "CREATE USER IF NOT EXISTS 'nwnee'@'%' IDENTIFIED BY 'nwnee';FLUSH PRIVILEGES;" && \
@@ -45,17 +47,7 @@ RUN mkdir $SERVER_DIR && \
 	mysql -u root -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'nwneeroot';FLUSH PRIVILEGES;"
 
 ADD /scripts/ /opt/scripts/
-RUN chmod -R 770 /opt/scripts/ && \
-	chown -R nwnee /opt/scripts && \
-	chown -R nwnee:users /var/lib/mysql && \
-	chmod -R 770 /var/lib/mysql && \
-	chown -R nwnee:users /var/run/mysqld && \
-	chmod -R 770 /var/run/mysqld && \
-	chown -R nwnee /var/lib/redis && \
-	chown -R nwnee /usr/bin/redis-server && \
-	chown -R nwnee /usr/bin/redis-cli
-
-USER nwnee
+RUN chmod -R 770 /opt/scripts/
 
 #Server Start
-ENTRYPOINT ["/opt/scripts/start-server.sh"]
+ENTRYPOINT ["/opt/scripts/start.sh"]
