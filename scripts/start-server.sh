@@ -14,8 +14,6 @@ LAT_V="$(curl -s https://api.github.com/repos/nwnxee/unified/releases/latest | g
 if [ "${NWNEE_V}" == "latest" ]; then
 	NWNEE_V=$LAT_V
 fi
-echo "---Setting umask to ${UMASK}---"
-umask ${UMASK}
 
 echo "---Starting MariaDB...---"
 screen -S MariaDB -L -Logfile ${SERVER_DIR}/MariaDBLog.0 -d -m mysqld_safe
@@ -127,7 +125,7 @@ echo "BGSAVE" | redis-cli
 echo "---Checking for old logs---"
 find ${SERVER_DIR} -name "MariaDBLog.0" -exec rm -f {} \;
 find ${SERVER_DIR} -name "RedisLog.0" -exec rm -f {} \;
-chmod -R 777 ${SERVER_DIR}
+chmod -R ${DATA_PERM} ${SERVER_DIR}
 
 if [ ! "$(ls -A "${SERVER_DIR}/Neverwinter Nights/modules")" ]; then
 	echo "-----------------------------------------------------------------"
