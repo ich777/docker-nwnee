@@ -5,6 +5,10 @@ LABEL maintainer="admin@minenet.at"
 RUN apt-get update && \
 	mkdir /usr/share/man/man1 && \
 	apt-get -y install --no-install-recommends gcc-8 g++-8 default-libmysqlclient-dev libpq-dev libseccomp-dev ruby-dev ant libluajit-5.1-2 curl unzip mariadb-server screen redis-server && \
+	cd /tmp && \
+	wget -q -nc --show-progress --progress=bar:force:noscroll -O /tmp/libsndio6.1_1.1.0-3_amd64.deb http://ftp.br.debian.org/debian/pool/main/s/sndio/libsndio6.1_1.1.0-3_amd64.deb && \
+	dpkg -i /tmp/libsndio6.1_1.1.0-3_amd64.deb && \
+	rm /tmp/libsndio6.1_1.1.0-3_amd64.deb && \
 	rm -R /usr/share/man/man1 && \
 	rm -rf /var/lib/apt/lists/*
 
