@@ -125,6 +125,8 @@ echo "BGSAVE" | redis-cli
 echo "---Checking for old logs---"
 find ${SERVER_DIR} -name "MariaDBLog.0" -exec rm -f {} \;
 find ${SERVER_DIR} -name "RedisLog.0" -exec rm -f {} \;
+find ${SERVER_DIR} -name "masterLog.0" -exec rm -f {} \;
+screen -wipe 2&>/dev/null
 chmod -R ${DATA_PERM} ${SERVER_DIR}
 
 if [ ! "$(ls -A "${SERVER_DIR}/Neverwinter Nights/modules")" ]; then
@@ -138,4 +140,7 @@ if [ ! "$(ls -A "${SERVER_DIR}/Neverwinter Nights/modules")" ]; then
 fi
 
 cd ${SERVER_DIR}/bin/linux-x86
-LD_PRELOAD=/nwnee/binaries/NWNX_Core.so ${SERVER_DIR}/bin/linux-x86/nwserver-linux -module "${MOD_NAME}" -maxclients ${MAX_CLIENTS} -minlevel ${MINLEVEL} -maxlevel ${MAXLEVEL} -pauseandplay ${PAUSEAPLAY} -pvp ${PVP} -servervault ${SERVERVAULT} -elc ${ELC} -ilr ${ILR} -oneparty ${ONEPARTY} -difficulty ${DIFF} -autosaveinterval ${AUTO_SAV_I} -playerpassword ${PPW} -adminpassword ${APWD} -servername "${SRV_NAME}" -publicserver ${PUBLIC_SRV} -reloadwhenempty ${RLD_W_E} -port ${GAME_PORT} -userdirectory "${SERVER_DIR}/Neverwinter Nights" ${GAME_PARAMS}
+LD_PRELOAD=/nwnee/binaries/NWNX_Core.so && screen -S nwnee -L -Logfile ${DATA_DIR}/masterLog.0 -d -m ${SERVER_DIR}/bin/linux-x86/nwserver-linux -module "${MOD_NAME}" -maxclients ${MAX_CLIENTS} -minlevel ${MINLEVEL} -maxlevel ${MAXLEVEL} -pauseandplay ${PAUSEAPLAY} -pvp ${PVP} -servervault ${SERVERVAULT} -elc ${ELC} -ilr ${ILR} -oneparty ${ONEPARTY} -difficulty ${DIFF} -autosaveinterval ${AUTO_SAV_I} -playerpassword ${PPW} -adminpassword ${APWD} -servername "${SRV_NAME}" -publicserver ${PUBLIC_SRV} -reloadwhenempty ${RLD_W_E} -port ${GAME_PORT} -userdirectory "${SERVER_DIR}/Neverwinter Nights" ${GAME_PARAMS}
+sleep 2
+screen -S watchdog -d -m /opt/scripts/start-watchdog.sh
+tail -f ${SERVER_DIR}/masterLog.0
