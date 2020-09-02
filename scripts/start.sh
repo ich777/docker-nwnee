@@ -27,8 +27,9 @@ chmod -R 770 /var/run/mysqld
 chown -R ${UID}:${GID} ${SERVER_DIR}
 
 term_handler() {
-	kill -SIGTERM "$killpid"
-	wait "$killpid" -f 2>/dev/null
+	screenpid="$(su $USER -c "screen -list | grep "Detached" | grep "nwnee" | cut -d '.' -f1")"
+	su $USER -c "screen -S nwnee -X stuff 'exit^M'" >/dev/null
+	tail --pid="${screenpid//[[:blank:]]/}" -f 2>/dev/null
 	exit 143;
 }
 
