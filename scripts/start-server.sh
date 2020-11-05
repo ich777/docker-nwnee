@@ -10,7 +10,7 @@ export NWNX_CORE_LOAD_PATH=/nwnx/binaries
 
 CUR_V="$(find ${SERVER_DIR} -name build* | cut -d 'd' -f2)"
 CUR_V_BIN="$(find ${SERVER_DIR} -name binariesbuild* | cut -d 'd' -f2)"
-LAT_V="$(curl -s https://api.github.com/repos/nwnxee/unified/releases/latest | grep tag_name | cut -d '"' -f4 | cut -d 'd' -f2)"
+LAT_V="$(curl -s https://api.github.com/repos/nwnxee/unified/contents/NWNXLib/Platform/ASLR.cpp | jq -r .content | base64 -d | grep NWNX_EXPECT_VERSION | cut -d '(' -f2 | cut -d ')' -f1 | sed 's/, /./')"
 if [ "${NWNEE_V}" == "latest" ]; then
 	NWNEE_V=$LAT_V
 fi
