@@ -62,8 +62,6 @@ if [ -z "$CUR_V_BIN" ]; then
 		sleep infinity
 	fi
 	unzip -o ${SERVER_DIR}/binaries/NWNX-EE.zip
-	mv ${SERVER_DIR}/binaries/Binaries/* ${SERVER_DIR}/binaries
-	rm -R ${SERVER_DIR}/binaries/Binaries
 	touch ${SERVER_DIR}/binariesbuild${NWNEE_V}
 	rm ${SERVER_DIR}/binaries/NWNX-EE.zip
     CUR_V_BIN=${NWNEE_V}
@@ -103,8 +101,6 @@ if [ "${NWNEE_V}" != "$CUR_V_BIN" ]; then
 		sleep infinity
 	fi
 	unzip -o ${SERVER_DIR}/binaries/NWNX-EE.zip
-	mv ${SERVER_DIR}/binaries/Binaries/* ${SERVER_DIR}/binaries
-	rm -R ${SERVER_DIR}/binaries/Binaries
 	touch ${SERVER_DIR}/binariesbuild${NWNEE_V}
 	rm ${SERVER_DIR}/binaries/NWNX-EE.zip
 elif [ "${NWNEE_V}" == "$CUR_V_BIN" ]; then
