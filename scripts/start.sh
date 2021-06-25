@@ -25,7 +25,7 @@ chown -R ${UID}:${GID} /usr/bin/redis-server
 chown -R ${UID}:${GID} /usr/bin/redis-cli
 chmod -R 770 /var/lib/mysql
 chmod -R 770 /var/run/mysqld
-chown -R ${UID}:${GID} ${DATA_DIR}
+chown -R ${UID}:${GID} ${SERVER_DIR}
 
 term_handler() {
 	screenpid="$(su $USER -c "screen -list | grep "Detached" | grep "nwnee" | cut -d '.' -f1")"
