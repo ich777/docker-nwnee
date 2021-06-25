@@ -23,7 +23,7 @@ if [ -z "$LAT_V" ]; then
 fi
 
 if [ "${NWNEE_V}" == "latest" ]; then
-	NWNEE_V="$(echo ${LAT_V%%-*} | sed 's/build//g'"
+	NWNEE_V="$(echo ${LAT_V%%-*} | sed 's/build//g')"
 fi
 
 echo "---Starting MariaDB...---"
