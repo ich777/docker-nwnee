@@ -10,9 +10,20 @@ export NWNX_CORE_LOAD_PATH=/nwnx/binaries
 
 CUR_V="$(find ${SERVER_DIR} -name build* | cut -d 'd' -f2)"
 CUR_V_BIN="$(find ${SERVER_DIR} -name binariesbuild* | cut -d 'd' -f2)"
-LAT_V="$(curl -s https://api.github.com/repos/nwnxee/unified/releases | grep tag_name | cut -d '"' -f4 | sed '/latest/d' | sed 's/build//g' | sort -V | sed '/-HEAD/d' | sed '/-old/d' | tail -1)"
+LAT_V="$(curl -s https://api.github.com/repos/nwnxee/unified/releases/latest | jq -r '.name')"
+
+if [ -z "$LAT_V" ]; then
+	if [ ! -z "$CUR_V" ]; then
+		echo "---Can't get latest version of NWN:EE Dedicated Server falling back to v$CUR_V---"
+		LAT_V="build${CUR_V}-HEAD"
+	else
+		echo "---Something went wrong, can't get latest version of NWN:EE Dedicated Server, putting container into sleep mode---"
+		sleep infinity
+	fi
+fi
+
 if [ "${NWNEE_V}" == "latest" ]; then
-	NWNEE_V=$LAT_V
+	NWNEE_V="$(echo ${LAT_V%%-*} | sed 's/build//g'"
 fi
 
 echo "---Starting MariaDB...---"
@@ -44,7 +55,7 @@ if [ -z "$CUR_V_BIN" ]; then
 		mkdir ${SERVER_DIR}/binaries
 	fi
 	cd ${SERVER_DIR}/binaries
-	if wget -q -nc --show-progress --progress=bar:force:noscroll https://github.com/nwnxee/unified/releases/download/build${NWNEE_V}/NWNX-EE.zip ; then
+	if wget -q -nc --show-progress --progress=bar:force:noscroll https://github.com/nwnxee/unified/releases/download/${LAT_V}/NWNX-EE.zip ; then
 		echo "---Sucessfully downloaded NWN:EE Binaries---"
 	else
 		echo "---Something went wrong, can't download NWN:EE Binaries, putting server in sleep mode---"
@@ -85,7 +96,7 @@ if [ "${NWNEE_V}" != "$CUR_V_BIN" ]; then
     rm -R ${SERVER_DIR}/binaries
     mkdir ${SERVER_DIR}/binaries
 	cd ${SERVER_DIR}/binaries
-	if wget -q -nc --show-progress --progress=bar:force:noscroll https://github.com/nwnxee/unified/releases/download/build${NWNEE_V}/NWNX-EE.zip ; then
+	if wget -q -nc --show-progress --progress=bar:force:noscroll https://github.com/nwnxee/unified/releases/download/${LAT_V}/NWNX-EE.zip ; then
 		echo "---Sucessfully downloaded NWN:EE Binaries---"
 	else
 		echo "---Something went wrong, can't download NWN:EE Binaries, putting server in sleep mode---"
