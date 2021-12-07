@@ -74,7 +74,7 @@ if [ "${NWNEE_V}" != "$CUR_V" ]; then
     rm -R ${SERVER_DIR}/bin
     rm -R ${SERVER_DIR}/data
 	cd ${SERVER_DIR}
-	if wget -q -nc --show-progress --progress=bar:force:noscroll https://nwnx.io/nwnee-dedicated-${NWNEE_V}.zip ; then
+	if wget -q -nc --show-progress --progress=bar:force:noscroll https://nwn.beamdog.net/downloads/nwnee-dedicated-${NWNEE_V}.zip ; then
 		echo "---Sucessfully downloaded NWN:EE Dedicated Server---"
 	else
 		echo "---Something went wrong, can't download NWN:EE Dedicated Server, putting server in sleep mode---"
