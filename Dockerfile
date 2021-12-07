@@ -44,7 +44,7 @@ RUN mkdir $SERVER_DIR && \
 	useradd -d $SERVER_DIR -s /bin/bash $USER && \
 	chown -R $USER $SERVER_DIR && \
 	ulimit -n 2048 && \
-	/etc/init.d/mysql start && \
+	/etc/init.d/mariadb start && \
 	mysql -u root -e "CREATE USER IF NOT EXISTS 'nwnee'@'%' IDENTIFIED BY 'nwnee';FLUSH PRIVILEGES;" && \
 	mysql -u root -e "CREATE DATABASE IF NOT EXISTS nwnee;" && \
 	mysql -u root -e "GRANT ALL ON nwnee.* TO 'nwnee'@'%' IDENTIFIED BY 'nwnee';" && \
