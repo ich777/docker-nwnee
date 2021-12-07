@@ -27,7 +27,7 @@ if [ "${NWNEE_V}" == "latest" ]; then
 fi
 
 echo "---Starting MariaDB...---"
-screen -S MariaDB -L -Logfile ${SERVER_DIR}/MariaDBLog.0 -d -m mysqld_safe
+screen -S MariaDB -L -Logfile ${SERVER_DIR}/MariaDBLog.0 -d -m mysqld
 sleep 5
 
 echo "---Starting Redis Server---"
