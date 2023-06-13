@@ -1,10 +1,10 @@
-FROM ich777/debian-baseimage
+FROM ich777/debian-baseimage:bullseye_amd64
 
 LABEL org.opencontainers.image.authors="admin@minenet.at"
 LABEL org.opencontainers.image.source="https://github.com/ich777/docker-nwnee"
 
 RUN apt-get update && \
-	apt-get -y install --no-install-recommends gcc-11 g++-11 default-libmysqlclient-dev libpq-dev libseccomp-dev ruby-dev ant libluajit-5.1-2 curl unzip mariadb-server screen redis-server jq libbsd0 && \
+	apt-get -y install --no-install-recommends gcc-10 g++-10 default-libmysqlclient-dev libpq-dev libseccomp-dev ruby-dev ant libluajit-5.1-2 curl unzip mariadb-server screen redis-server jq libbsd0 && \
 	cd /tmp && \
 	wget -q -nc --show-progress --progress=bar:force:noscroll -O /tmp/libsndio6.1_1.1.0-3_amd64.deb http://ftp.debian.org/debian/pool/main/s/sndio/libsndio6.1_1.1.0-3_amd64.deb && \
 	dpkg -i /tmp/libsndio6.1_1.1.0-3_amd64.deb && \
