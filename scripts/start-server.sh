@@ -10,7 +10,7 @@ export NWNX_CORE_LOAD_PATH=/nwnx/binaries
 
 CUR_V="$(find ${SERVER_DIR} -name build* | cut -d 'd' -f2)"
 CUR_V_BIN="$(find ${SERVER_DIR} -name binariesbuild* | cut -d 'd' -f2)"
-LAT_V="$(curl -s https://api.github.com/repos/nwnxee/unified/releases/latest | jq -r '.name')"
+LAT_V="$(curl -sL https://api.github.com/repos/nwnxee/unified/releases/latest | jq -r '.name')"
 
 if [ -z "$LAT_V" ]; then
 	if [ ! -z "$CUR_V" ]; then
